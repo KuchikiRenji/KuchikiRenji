@@ -1,73 +1,163 @@
-<div style="font-family: Consolas, monospace; color: #FF6347; background-color: #0d1117; padding: 20px; border-radius: 10px;">
+# GitHub Visit Counter
 
-![Neon Banner](https://capsule-render.vercel.app/api?type=waving&height=280&color=0:834DFF,50:1F1BFF,100:00D2FF&text=YaroslavGuru%20%7C%20Web3%20Engineer&fontSize=42&fontAlign=50&fontColor=FFFFFF&animation=twinkling)
+A production-ready serverless visit counter badge for GitHub README files. This project uses Vercel serverless functions to track and display visit counts in a beautiful SVG badge.
 
-![Typing SVG](https://readme-typing-svg.demolab.com?font=Orbitron&duration=2400&pause=1000&color=9D7CFF&center=true&vCenter=true&width=900&height=70&lines=Hi%2C+I'm+a+Web3+Engineer;Smart+Contracts+%26+Neon+Frontends;Gas-Optimized+DeFi+%26+Security;On-chain+UX+for+the+Metaverse)
+![Visits](https://github-visit-counter.vercel.app/api/counter)
 
----
+## Features
 
-### ✨ About Me
-**Specializing in**  
-Solidity · EVM · Hardhat · Foundry  
-Next.js · Wagmi · Viem · TypeScript  
-Indexers · Subgraphs · Node.js APIs  
-Smart contract security · Gas optimization
+- 🎨 Beautiful neon purple SVG badge (similar to shields.io style)
+- ⚡ Serverless function on Vercel (fast and scalable)
+- 💾 Dual storage: Vercel KV (production) or JSON file (local dev)
+- 🛡️ Built-in rate limiting (prevents abuse)
+- 🔄 Auto-detection of storage backend
+- 📊 Real-time counter updates
 
-⚡ I craft futuristic, neon-grade experiences for Web3 natives  
-🧠 Passionate about secure contracts, programmable liquidity, and zk-friendly UX  
-🚀 Bridging smart-contract rigor with playful frontends and data-rich infra
+## Quick Start
 
----
+### 1. Deploy to Vercel
 
-### 🧠 Tech Stack
+```bash
+# Install Vercel CLI (if not already installed)
+npm i -g vercel
 
-**Skill Icons:**
+# Deploy
+vercel --prod
+```
 
-<div style="display: flex; flex-wrap: wrap; gap: 5px;">
-<img src="https://skillicons.dev/icons?i=solidity&theme=dark" alt="Solidity" width="48" height="48" style="margin: 5px;">
-<img src="https://skillicons.dev/icons?i=nextjs&theme=dark" alt="Next.js" width="48" height="48" style="margin: 5px;">
-<img src="https://skillicons.dev/icons?i=ts&theme=dark" alt="TypeScript" width="48" height="48" style="margin: 5px;">
-<img src="https://skillicons.dev/icons?i=nodejs&theme=dark" alt="Node.js" width="48" height="48" style="margin: 5px;">
-<img src="https://skillicons.dev/icons?i=graphql&theme=dark" alt="GraphQL" width="48" height="48" style="margin: 5px;">
-</div>
+Or connect your GitHub repository to Vercel for automatic deployments.
 
-**Badge Icons:**
+### 2. Set Up Vercel KV (Production)
 
-<div style="display: flex; flex-wrap: wrap; gap: 5px;">
-<img src="https://img.shields.io/badge/EVM-12131A?style=for-the-badge&logo=ethereum&logoColor=8AEBFF" alt="EVM" height="28" style="margin: 5px;">
-<img src="https://img.shields.io/badge/Hardhat-FFDF00?style=for-the-badge&logo=hardhat&logoColor=000" alt="Hardhat" height="28" style="margin: 5px;">
-<img src="https://img.shields.io/badge/Foundry-0A0A0A?style=for-the-badge&logo=forgejo&logoColor=F45050" alt="Foundry" height="28" style="margin: 5px;">
-<img src="https://img.shields.io/badge/Wagmi-3AFFF5?style=for-the-badge&logo=ethers&logoColor=0A0A0A" alt="Wagmi" height="28" style="margin: 5px;">
-<img src="https://img.shields.io/badge/Viem-FF5FDB?style=for-the-badge" alt="Viem" height="28" style="margin: 5px;">
-<img src="https://img.shields.io/badge/Subgraphs-8B5CF6?style=for-the-badge&logo=thegraph&logoColor=fff" alt="Subgraphs" height="28" style="margin: 5px;">
-<img src="https://img.shields.io/badge/Indexers-00FFAA?style=for-the-badge" alt="Indexers" height="28" style="margin: 5px;">
-<img src="https://img.shields.io/badge/Smart%20Contract%20Security-7E22CE?style=for-the-badge&logo=hackthebox&logoColor=fff" alt="Security" height="28" style="margin: 5px;">
-<img src="https://img.shields.io/badge/Gas%20Optimization-FF7FD1?style=for-the-badge&logo=speedtest&logoColor=fff" alt="Gas Optimization" height="28" style="margin: 5px;">
-</div>
+For production, you'll need to set up Vercel KV:
 
----
+1. Go to your Vercel project dashboard
+2. Navigate to **Storage** → **Create Database** → **KV**
+3. Create a new KV database
+4. Go to **Settings** → **Environment Variables** and add the following (Vercel will automatically inject these when you link the KV database):
 
-### 🚀 Currently Building
-- 🛠 Polygon Smart Contract Toolkit
-- 🔐 Vesting + Staking dApp (Next.js / Viem)
-- 🌐 Polygon Indexer + API
+**Option A: Using Vercel KV SDK (Recommended)**
+When you link a KV database to your project, Vercel automatically sets:
+- `KV_REST_API_URL`
+- `KV_REST_API_TOKEN`
+- `KV_REST_API_READ_ONLY_TOKEN`
 
----
+**Option B: Manual Configuration**
+If you need to set them manually:
+- `KV_REST_API_URL` - Your KV REST API URL (from KV database settings)
+- `KV_REST_API_TOKEN` - Your KV REST API token (from KV database settings)
 
-### 📬 Contact
-[![Telegram](https://img.shields.io/badge/Telegram-@xkarkadanx-1D9BF0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/xkarkadanx)  
-📧 **Email:** sudobe7@gmail.com
+**Note:** The project automatically detects which storage method to use. If KV environment variables are present, it uses KV. Otherwise, it falls back to JSON file storage (for local development).
 
----
+### 3. Add Badge to Your README
 
-### 📊 GitHub Stats
+Add this line to your GitHub README.md:
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=YaroslavGuru&layout=compact&theme=tokyonight&hide_border=true&bg_color=0d1117&title_color=9D7CFF)
+```markdown
+![Visits](https://your-project-name.vercel.app/api/counter)
+```
 
----
+Replace `your-project-name` with your actual Vercel project name.
 
-<div style="font-family: Consolas, monospace; color: #FF6347; letter-spacing: 0.1em;">
-🌌 "Build bold, stay composable, and let neon contracts light the metaverse." 🌌
-</div>
+## Local Development
 
-</div>
+### Prerequisites
+
+- Node.js 18+ installed
+- Vercel CLI installed (`npm i -g vercel`)
+
+### Running Locally
+
+```bash
+# Install dependencies (if any)
+npm install
+
+# Start local development server
+npm run dev
+```
+
+The counter will use `counter.json` for storage when running locally (no KV required).
+
+### Environment Variables (Local)
+
+For local development, you can create a `.env` file (see `.env.example`). However, local development will automatically fall back to JSON file storage if KV variables are not set.
+
+## Project Structure
+
+```
+.
+├── api/
+│   └── counter.js          # Serverless function handler
+├── lib/
+│   └── storage.js          # Storage abstraction layer
+├── counter.json            # Initial seed file (local dev)
+├── vercel.json             # Vercel configuration
+├── package.json            # Project dependencies
+├── .env.example            # Example environment variables
+└── README.md               # This file
+```
+
+## How It Works
+
+1. **Request Flow:**
+   - User loads the badge URL in their README
+   - Vercel serverless function is triggered
+   - Function checks rate limiting (1 request per minute per IP)
+   - Counter is incremented (if not rate limited)
+   - SVG badge is generated and returned
+
+2. **Storage:**
+   - **Production:** Uses Vercel KV for persistent, distributed storage
+   - **Local Dev:** Uses `counter.json` file for simplicity
+
+3. **Rate Limiting:**
+   - Prevents abuse by limiting increments to once per minute per IP
+   - Still returns the current count even if rate limited
+
+## Customization
+
+### Changing Colors
+
+Edit `api/counter.js` and modify the color constants:
+
+```javascript
+const labelColor = '#9D7CFF';  // Neon purple
+const valueColor = '#0d1117';   // Dark background
+const textColor = '#ffffff';     // White text
+```
+
+### Changing Label
+
+Modify the `label` variable in `generateSVG()` function:
+
+```javascript
+const label = 'visits';  // Change to 'views', 'hits', etc.
+```
+
+## Troubleshooting
+
+### Badge Not Updating
+
+- Check that your Vercel deployment is successful
+- Verify environment variables are set correctly
+- Check Vercel function logs for errors
+
+### Counter Resets
+
+- Ensure Vercel KV is properly configured
+- Check that `VERCEL_REST_API_TOKEN` has correct permissions
+- Verify `VERCEL_KV_NAMESPACE` matches your KV database
+
+### Local Development Issues
+
+- Make sure `counter.json` exists and is writable
+- Check that Node.js version is 18 or higher
+- Verify Vercel CLI is installed and up to date
+
+## License
+
+MIT
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.

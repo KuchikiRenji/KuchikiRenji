@@ -1,0 +1,27 @@
+{
+  "name": "github-visit-counter",
+  "version": "1.0.0",
+  "description": "A serverless GitHub visit counter badge using Vercel",
+  "main": "api/counter.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "github",
+    "visitor",
+    "counter",
+    "badge",
+    "vercel",
+    "serverless"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.x"
+  },
+  "dependencies": {
+    "@vercel/kv": "^0.2.1"
+  }
+}
+
